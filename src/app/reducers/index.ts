@@ -9,9 +9,20 @@ import {
   on
 } from '@ngrx/store';
 import { AuthState } from '../auth/reducers';
+import { environment } from '../../environments/environment';
+import { routerReducer } from '@ngrx/router-store';
 
 export const authFeatureKey = 'app';
 
 export interface AppState {
-    auth: AuthState
+
 }
+
+export const reducers: ActionReducerMap<AppState> = {
+  router: routerReducer
+
+};
+
+export const metaReducers: MetaReducer<AppState>[] = 
+  !environment.production ? [] : [];
+

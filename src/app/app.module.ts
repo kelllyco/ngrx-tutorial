@@ -22,6 +22,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {EntityDataModule} from '@ngrx/data';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AuthGuard } from './auth/auth.guard';
+import { reducers, metaReducers} from './reducers';
 
 // courses is lazy loaded
 
@@ -52,8 +53,12 @@ const routes: Routes = [
         MatListModule,
         MatToolbarModule,
         AuthModule.forRoot(), // forRoot gets rid of lazy loading, loads eagerly
-        StoreModule.forRoot({}, {}),
+        StoreModule.forRoot(reducers, {metaReducers}),
         EffectsModule.forRoot({}),
+        StoreRouterConnectingModule.forRoot({ // for time travelling debugger
+          stateKey: 'router',
+          routerState: RouterState.Minimal // saves serializable version of router state
+        }),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })], providers: [provideHttpClient(withInterceptorsFromDi())]
        })
 export class AppModule {
