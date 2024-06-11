@@ -23,6 +23,17 @@ export const reducers: ActionReducerMap<AppState> = {
 
 };
 
+// use any bc want to just log current state
+export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
+  return (state, action) => {
+    console.log("state before: ", state);
+    console.log("action", action);
+
+    return reducer(state, action);
+  }
+}
+
+// order matters, metareducers are invoked in order of array
 export const metaReducers: MetaReducer<AppState>[] = 
-  !environment.production ? [] : [];
+  !environment.production ? [logger] : [];
 
