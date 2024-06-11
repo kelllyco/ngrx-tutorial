@@ -3,6 +3,9 @@ import {select, Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {map} from 'rxjs/operators';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
+import { AuthState } from './auth/reducers';
+import { AppState } from './reducers';
+import { isLoggedIn, isLoggedOut } from './auth/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +16,11 @@ export class AppComponent implements OnInit {
 
     loading = true;
 
-    constructor(private router: Router) {
+    isLoggedIn$: Observable<boolean>;
+
+    isLoggedOut$: Observable<boolean>;
+
+    constructor(private router: Router, private store: Store<AppState>) {
 
     }
 
@@ -37,6 +44,18 @@ export class AppComponent implements OnInit {
           }
         }
       });
+
+      this.isLoggedIn$ = this.store
+      // select is like map + report only if changed combined
+        .pipe(
+          select(isLoggedIn) // isLoggedIn selector only repeats calculation if input changes
+          // select operator returns any duplicates passed to the view
+        );
+      
+        this.isLoggedOut$ = this.store
+          .pipe(
+            map(isLoggedOut) // evals to false if there is a user logged in
+          )
 
     }
 

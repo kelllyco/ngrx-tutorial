@@ -101,16 +101,16 @@ $mat-accent: (
   )
 );
 
-$primary: mat.m2-define-palette($mat-primary, 500);
+$primary: mat.define-palette($mat-primary, 500);
 
-$accent: mat.m2-define-palette($mat-accent, A200, A100, A400);
+$accent: mat.define-palette($mat-accent, A200, A100, A400);
 
-$theme: mat.m2-define-light-theme((
+$theme: mat.define-light-theme((
   color: (
     primary: $primary,
     accent: $accent,
   ),
-  typography: mat.m2-define-typography-config(),
+  typography: mat.define-typography-config(),
   density: 0,
 ));
 

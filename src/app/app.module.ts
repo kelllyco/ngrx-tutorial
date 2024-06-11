@@ -1,5 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import {NgModule, isDevMode} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -22,6 +22,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {EntityDataModule} from '@ngrx/data';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+// courses is lazy loaded
 
 const routes: Routes = [
   {
@@ -48,6 +49,8 @@ const routes: Routes = [
         MatProgressSpinnerModule,
         MatListModule,
         MatToolbarModule,
-        AuthModule.forRoot()], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        AuthModule.forRoot(), // forRoot gets rid of lazy loading, loads eagerly
+        StoreModule.forRoot({}, {}),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {
 }
