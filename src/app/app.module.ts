@@ -53,6 +53,8 @@ const routes: Routes = [
         MatToolbarModule,
         AuthModule.forRoot(), // forRoot gets rid of lazy loading, loads eagerly
         StoreModule.forRoot({}, {}),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        EffectsModule.forRoot({}),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })], providers: [provideHttpClient(withInterceptorsFromDi())]
+       })
 export class AppModule {
 }
