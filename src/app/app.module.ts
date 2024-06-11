@@ -21,13 +21,15 @@ import {RouterState, StoreRouterConnectingModule} from '@ngrx/router-store';
 import {EffectsModule} from '@ngrx/effects';
 import {EntityDataModule} from '@ngrx/data';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { AuthGuard } from './auth/auth.guard';
 
 // courses is lazy loaded
 
 const routes: Routes = [
   {
     path: 'courses',
-    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule)
+    loadChildren: () => import('./courses/courses.module').then(m => m.CoursesModule),
+    canActivate: [AuthGuard] // any path in router containging /courses will be protected by AuthGuard
   },
   {
     path: '**',
