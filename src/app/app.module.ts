@@ -53,7 +53,15 @@ const routes: Routes = [
         MatListModule,
         MatToolbarModule,
         AuthModule.forRoot(), // forRoot gets rid of lazy loading, loads eagerly
-        StoreModule.forRoot(reducers, {metaReducers}),
+        StoreModule.forRoot(reducers, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true, // state in store is never accidentally mutated by app code
+            strictActionImmutability: true, // actions cannot be mutated either, important for most dev tools (no good reason to mutate it)
+            strictActionSerializability: true, // ensures actions are serializable (ie no date object)
+            strictStateSerializability: true // ensures states in store are always serializable (useful when storing state locally)
+          }
+        }),
         EffectsModule.forRoot({}),
         StoreRouterConnectingModule.forRoot({ // for time travelling debugger
           stateKey: 'router',

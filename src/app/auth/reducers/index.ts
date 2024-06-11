@@ -25,6 +25,8 @@ export const authReducer = createReducer(
     initialAuthState, // first argument
 
     // tells reducer how to respond to on login action
+    // returning new copy of user, rather than state.user = action.user,
+    // is important!! helps w debugging and change detection
     on(AuthActions.login, (state, action) => {
       return {
         user: action.user // action is of type login
