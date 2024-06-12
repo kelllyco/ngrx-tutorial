@@ -1,7 +1,7 @@
 import { EntityState, createEntityAdapter } from "@ngrx/entity";
-import { Course } from "../../model/course";
+import { Course } from "../model/course";
 import { createReducer, on } from "@ngrx/store";
-import { CourseActions } from "../../action-types";
+import { CourseActions } from "../action-types";
 
 export interface CoursesState extends EntityState<Course>{
     // entity format!
@@ -23,3 +23,5 @@ export const coursesReducer = createReducer(
     on(CourseActions.allCoursesLoaded, 
         (state, action) => adapter.addMany(action.courses, state))
 );
+
+export const {selectAll} = adapter.getSelectors();

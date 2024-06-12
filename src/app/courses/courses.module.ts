@@ -29,7 +29,7 @@ import { CoursesResolver } from './courses.resolver';
 import { CoursesEffects } from './courses.effects';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { coursesReducer } from './course/reducers/course.reducers';
+import { coursesReducer } from './reducers/course.reducers';
 
 
 export const coursesRoutes: Routes = [
