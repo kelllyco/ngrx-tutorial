@@ -1,5 +1,5 @@
 import { EntityState, createEntityAdapter } from "@ngrx/entity";
-import { Course } from "../model/course";
+import { Course, compareCourses } from "../model/course";
 import { createReducer, on } from "@ngrx/store";
 import { CourseActions } from "../action-types";
 
@@ -12,7 +12,10 @@ export interface CoursesState extends EntityState<Course>{
 }
 
 // adapter provides traditional CRUD ops to the entity!!
-export const adapter = createEntityAdapter<Course>();
+export const adapter = createEntityAdapter<Course>({
+    sortComparer: compareCourses // function to sort
+    // selectId: course => course.id // redundant bc it auto detects id, but nice to know
+});
 
 // empty entities map and empty ids array
 export const initialCoursesState = adapter.getInitialState(); 
