@@ -31,7 +31,10 @@ export const coursesReducer = createReducer(
         (state, action) => adapter.addMany(action.courses,
              {...state,
                     allCoursesLoaded:true
-             }))
+             })),
+
+    on(CourseActions.courseUpdated, (state, action) =>
+        adapter.updateOne(action.update, state) )
 );
 
 export const {selectAll} = adapter.getSelectors();
