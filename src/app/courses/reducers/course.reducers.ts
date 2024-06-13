@@ -4,6 +4,8 @@ import { createReducer, on } from "@ngrx/store";
 import { CourseActions } from "../action-types";
 
 export interface CoursesState extends EntityState<Course>{
+
+    allCoursesLoaded: boolean
     // entity format!
     // entities: {[key:number]:Course} // courses should not be stored in state as an array, transform here into key val pair
     // ids: number[] // defines entity order
@@ -18,13 +20,18 @@ export const adapter = createEntityAdapter<Course>({
 });
 
 // empty entities map and empty ids array
-export const initialCoursesState = adapter.getInitialState(); 
+export const initialCoursesState = adapter.getInitialState({
+    allCoursesLoaded: false
+}); 
 
 export const coursesReducer = createReducer(
     initialCoursesState,
 
     on(CourseActions.allCoursesLoaded, 
-        (state, action) => adapter.addMany(action.courses, state))
+        (state, action) => adapter.addMany(action.courses,
+             {...state,
+                    allCoursesLoaded:true
+             }))
 );
 
 export const {selectAll} = adapter.getSelectors();
