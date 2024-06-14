@@ -28,6 +28,7 @@ import {compareLessons, Lesson} from './model/lesson';
 import { CourseEntityService } from './services/course-entity.service';
 import { CoursesResolver } from './services/courses.resolver';
 import { CoursesDataService } from './services/courses-data.service';
+import { LessonEntityService } from './services/lesson-entity.service';
 
 
 export const coursesRoutes: Routes = [
@@ -55,6 +56,10 @@ const entityMetadata: EntityMetadataMap = {
       optimisticUpdate: true
     }
 
+  },
+  // think this is here bc course to lesson is one to many
+  Lesson: {
+    sortComparer: compareLessons
   }
 };
 
@@ -94,6 +99,7 @@ const entityMetadata: EntityMetadataMap = {
   providers: [
     CoursesHttpService,
     CourseEntityService,
+    LessonEntityService,
     CoursesResolver,
     CoursesDataService
   ]
