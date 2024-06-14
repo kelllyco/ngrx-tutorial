@@ -62,7 +62,8 @@ const routes: Routes = [
             strictStateSerializability: true // ensures states in store are always serializable (useful when storing state locally)
           }
         }),
-        EffectsModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        EntityDataModule.forRoot({}),
         StoreRouterConnectingModule.forRoot({ // for time travelling debugger
           stateKey: 'router',
           routerState: RouterState.Minimal // saves serializable version of router state
